@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace heinousHorror.Model
 {
     public class Movies
     {
-        public string Poster_path { get; set; }
+        private const string BaseUrl = "https://image.tmdb.org/t/p/w500";
+        private string _posterPath;
+
+        public string Poster_path
+        {
+            get => $"{BaseUrl}{_posterPath}";
+            set => _posterPath = value;
+        }
+
         public bool Adult { get; set; }
         public string Overview { get; set; }
         public string Release_date { get; set; }

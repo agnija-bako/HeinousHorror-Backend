@@ -60,7 +60,13 @@ namespace heinousHorror
             
             //Configure Authentication manager
             services.AddSingleton<IJwtAuthenticationManger>(new JwtAuthenticationManager(_jwtSecretKey));
-           
+
+            //Enable cors for origin
+            services.AddCors(c =>
+            {
+                c.AddDefaultPolicy(builder=>builder.WithOrigins("http://localhost:3000"));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,10 +80,12 @@ namespace heinousHorror
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+           
         }
     }
 }

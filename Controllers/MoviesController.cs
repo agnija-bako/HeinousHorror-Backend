@@ -7,17 +7,21 @@ using System.Linq;
 using System.Net.Http;
 using heinousHorror.Model;
 using heinousHorror.ExternalApiProcessors;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Configuration;
+
 
 namespace heinousHorror.Controllers
 {
     [ApiController]
+
     public class MoviesController : ControllerBase
     {
         private static IConfiguration Config => Startup.StaticConfiguration;
 
         [Route("api/movies/popular")]
         [HttpGet]
+
         public async Task<MovieDB> GetPopularMovies()
         {
             
