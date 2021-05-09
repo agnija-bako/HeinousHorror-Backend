@@ -68,5 +68,17 @@ namespace heinousHorror.Controllers
             string query = "fields *; where id =" + gameId + ";";
             return await GameProcessor.LoadGames(query).ConfigureAwait(false);
         }
+
+        [Route("api/games/covers/{id}")]
+        [HttpGet]
+        public async Task<List<Cover>> GetGameCoverById(int? id)
+        {
+            if (id == null)
+                return null;
+
+            int coverId = (int)id;
+            string query = "fields *; where game =" + coverId + ";";
+            return await GameProcessor.LoadCover(query).ConfigureAwait(false);
+        }
     }
 }

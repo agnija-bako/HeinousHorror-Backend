@@ -53,5 +53,21 @@ namespace heinousHorror.ExternalApiProcessors
                 throw new Exception(response.ReasonPhrase);
             }
         }
+
+        public static async Task<List<Cover>> LoadCover(string query)
+        {
+            string url = "https://api.igdb.com/v4/covers";
+            var postContent = new StringContent(query);
+            using HttpResponseMessage response =
+                await ApiHelper.GameApiClient.PostAsync(url, postContent).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsAsync<List<Cover>>();
+            }
+            else
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+        }
     }
 }
