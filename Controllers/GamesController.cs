@@ -6,6 +6,7 @@ using heinousHorror.ExternalApiProcessors;
 using heinousHorror.Model.Game;
 using heinousHorror.Helper;
 
+
 namespace heinousHorror.Controllers
 {
     [ApiController]
@@ -53,7 +54,7 @@ namespace heinousHorror.Controllers
         [HttpGet]
         public async Task<List<Games>> GetTopGames()
         {
-            const string query = "fields *; limit 100; where themes = 19 & rating != null; sort rating desc;";
+            const string query = "fields *; limit 20; where themes = 19 & rating != null; sort rating desc;";
             return await GameProcessor.LoadGames(query).ConfigureAwait(false);
         }
 
@@ -71,14 +72,14 @@ namespace heinousHorror.Controllers
 
         [Route("api/games/covers/{id}")]
         [HttpGet]
-        public async Task<List<Cover>> GetGameCoverById(int? id)
+        public async Task<JsonResult> GetGameCoverById(int? id)
         {
             if (id == null)
                 return null;
 
-            int coverId = (int)id;
-            string query = "fields *; where game =" + coverId + ";";
-            return await GameProcessor.LoadCover(query).ConfigureAwait(false);
+            int gameId = (int)id;
+            string query = "fields *; where game =" + gameId + ";";
+            return new JsonResult(await GameProcessor.LoadCover(query));
         }
     }
 }

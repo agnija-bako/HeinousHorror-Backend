@@ -59,7 +59,7 @@ namespace heinousHorror.ExternalApiProcessors
             string url = "https://api.igdb.com/v4/covers";
             var postContent = new StringContent(query);
             using HttpResponseMessage response =
-                await ApiHelper.GameApiClient.PostAsync(url, postContent).ConfigureAwait(false);
+                await ApiHelper.GameApiClient.PostAsync(url, postContent);
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsAsync<List<Cover>>();
